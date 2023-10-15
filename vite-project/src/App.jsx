@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import './App.css'
+import react, { useState } from 'react'
+// import './App.css'
 
 import seedColors from './components/seedColors'
 import Palette from './components/Palette'
