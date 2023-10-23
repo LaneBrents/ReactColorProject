@@ -3,20 +3,33 @@ import ColorBox from "./ColorBox";
 import NavBar from "./NavBar";
 import "../styles/Palette.css";
 
-export default function Palette({ colors, palette }) {
-  const [level, setLevel] = useState(500);
+export default function Palette(props) {
+  const [state, setState] = useState({
+    level: 500,
+    format: "hex",
+  });
 
-  const changeLevel = (event, level) => {
-    setLevel(level);
+  const { level, format } = state;
+
+  const changeLevel = (level) => {
+    setState({ ...state, level: level });
   };
 
-  const colorBoxes = palette.colors[level].map((color) => (
-    <ColorBox background={color.hex} name={color.name} />
+  const changeFormat = (val) => {
+    setState({ ...state, format: val });
+  };
+
+  const colorBoxes = props.palette.colors[level].map((color) => (
+    <ColorBox background={color[format]} name={color.name} />
   ));
 
   return (
     <div className="Palette">
-      <NavBar level={level} changeLevel={changeLevel}/>
+      <NavBar
+        level={level}
+        changeLevel={changeLevel}
+        handleChange={changeFormat}
+      />
       <div className="Palette-Colors">{colorBoxes}</div>
       {/* footer goes here */}
     </div>

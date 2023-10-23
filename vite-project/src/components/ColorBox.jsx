@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "../styles/ColorBox.css";
 
-export default function ColorBox({ name, background }) {
-  const [copied, setCopied] = useState(false);
+export default function ColorBox(props) {
+  const [state, setState] = useState({
+    copied: false
+  });
 
-  const changeCopyState = () => {
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 1500);
-  };
+  const handleCopy = () => {
+    setState({ copied: true });
+    setTimeout(() => setState({ copied: false}), 1000);
+  }
+
+  const { copied } = state;
 
   return (
-    <CopyToClipboard text={background} onCopy={changeCopyState}>
-      <div style={{ background }} className="ColorBox">
+    <CopyToClipboard text={props.background} onCopy={handleCopy}>
+      <div style={{ backgroundColor: props.background }} className="ColorBox">
         <div
-          style={{ background }}
+          style={{ backgroundColor: props.background }}
           className={`copy-overlay ${copied && "show"}`}
         />
         <div className={`copy-msg ${copied && "show"}`}>
           <h1>copied!</h1>
-          <p>{background}</p>
+          <p>{props.background}</p>
         </div>
         <div className="container">
           <div className="container-content">
-            <span>{name}</span>
+            <span>{props.name}</span>
           </div>
           <button className="copy-btn">Copy</button>
         </div>
