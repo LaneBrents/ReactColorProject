@@ -1,17 +1,26 @@
 import React, { useState } from "react";
-import { MenuItem, Select } from "@mui/material";
+import { Icon, MenuItem, Select } from "@mui/material";
+import "rc-slider/assets/index.css";
 import "../styles/NavBar.css";
 import Slider from "rc-slider";
-import "rc-slider/assets/index.css";
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 export default function NavBar(props) {
   const [state, setState] = useState({
     format: "hex",
+    open: false
   });
 
   const handleChange = (e) => {
-    setState({ format: e.target.value });
+    setState({ format: e.target.value, open: true });
     props.handleChange(e.target.value);
+  };
+
+  const closeSnackbar = () => {
+    setState({...state, open: false });
   };
 
   return (
@@ -33,12 +42,26 @@ export default function NavBar(props) {
         </div>
       </div>
       <div className="select-container">
-        <Select value={state.format} onChange={handleChange}>
+        <Select size="small" value={state.format} onChange={handleChange}>
           <MenuItem value="hex">HEX</MenuItem>
           <MenuItem value="rgb">RGB</MenuItem>
           <MenuItem value="rgba">RGBA</MenuItem>
         </Select>
       </div>
+      <Snackbar anchorOrigin={{vertical: "bottom", horizontal: "left"}} 
+      open={state.open}
+      autoHideDuration={1500}
+      message={<span id="msg-id">Format Changed!</span>}
+      ContentProps={{
+        "aria-describedby": "msg-id"
+      }}
+      onClose={closeSnackbar}
+      action={[
+        <IconButton onClick={closeSnackbar} color="inherit" key="close" aria-label="close" >
+            <CloseIcon />
+        </IconButton>
+      ]}
+      />
     </header>
   );
 }
