@@ -1,9 +1,25 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import ColorBox from "./ColorBox";
 import NavBar from "./NavBar";
 import "../styles/Palette.css";
+import generatePalette from "./colorHelpers";
+import seedColors from "./seedColors";
 
 export default function Palette(props) {
+
+  //====Used to find palette ID's for App.jsx======
+  const { paletteId } = useParams();
+
+  const findPallete = (id) => {
+    return seedColors.find(function (palette) {
+      return palette.id === id;
+    });
+  };
+
+  const palette = generatePalette(findPallete(paletteId));
+  //==========
+
   const [state, setState] = useState({
     level: 500,
     format: "hex",
@@ -19,7 +35,7 @@ export default function Palette(props) {
     setState({ ...state, format: val });
   };
 
-  const colorBoxes = props.palette.colors[level].map((color) => (
+  const colorBoxes = palette.colors[level].map((color) => (
     <ColorBox background={color[format]} name={color.name} key={color.id}/>
   ));
 
@@ -32,8 +48,8 @@ export default function Palette(props) {
       />
       <div className="Palette-Colors">{colorBoxes}</div>
       <footer className="Palette-footer">
-        {props.palette.paletteName}
-        <span className="emoji">{props.palette.emoji}</span>
+        {palette.paletteName}
+        <span className="emoji">{palette.emoji}</span>
       </footer>
     </div>
   );

@@ -1,20 +1,13 @@
-import react, { useState } from 'react'
-import { Route } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 
-import generatePalette from './components/colorHelpers';
-import seedColors from './components/seedColors';
-import Palette from './components/Palette';
+import Palette from "./components/Palette";
 
-function App() {
+
+export default function App() {
   return (
-    // <>
-    //   <Route exact path="/#" render={() => <h1>Palette goes here</h1>}/>
-    //   <Route exact path="/palette/:id" />
-    // </>
-      <div>
-        <Palette palette={generatePalette(seedColors[4])} />
-      </div>
-  )
+    <Routes>
+      <Route path="/" element={<h1>Hello</h1>} />
+      <Route path="/palette/:paletteId" element={<Palette />} />
+    </Routes>
+  );
 }
-
-export default App
