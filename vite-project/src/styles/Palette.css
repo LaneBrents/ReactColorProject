@@ -1,5 +1,5 @@
 .Palette {
-    height: 100vh;
+    height: 98vh;
     display: flex;
     flex-direction: column;
 }
@@ -15,6 +15,7 @@
     justify-content: flex-end;
     align-items: center;
     font-weight: bold;
+    border: 2px solid grey;
 }
 
 .emoji {
