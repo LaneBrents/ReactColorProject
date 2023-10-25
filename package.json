@@ -4,11 +4,13 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.14.14",
-    "@mui/material": "^5.14.14",
+    "@mui/material": "^5.14.15",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.3",
     "chroma-js": "^2.4.2",
     "rc-slider": "^10.3.1",
     "react-copy-to-clipboard": "^5.1.0",
     "react-router": "^6.17.0",
-    "react-router-dom": "^6.17.0"
+    "react-router-dom": "^6.17.0",
+    "styled-components": "^6.1.0"
   }
 }
