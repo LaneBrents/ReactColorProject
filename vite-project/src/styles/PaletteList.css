@@ -28,3 +28,7 @@
     grid-template-columns: repeat(3, 30%);
     grid-gap: 5%;
 }
+
+.mini-link {
+    text-decoration: none;
+}

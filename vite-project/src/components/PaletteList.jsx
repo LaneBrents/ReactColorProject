@@ -12,7 +12,9 @@ export default function PaletteList({ palettes }) {
         </nav>
         <div className="mini-palettes">
           {palettes.map((palette) => (
-            <MiniPalette {...palette} />
+            <Link className="mini-link" to={`/palette/${palette.id}`}>
+              <MiniPalette {...palette} />
+            </Link>
           ))}
         </div>
       </div>

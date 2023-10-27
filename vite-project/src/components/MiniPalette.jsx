@@ -7,7 +7,7 @@ export default function MiniPalette(props) {
   ));
 
   return (
-    <div className="mini-root">
+    <div className="mini-root" onClick={props.handleClick}>
       <div className="mini-colors">{miniColorBoxes}</div>
       <h5 className="mini-title">
         {props.paletteName} <span className="mini-emoji">{props.emoji}</span>
