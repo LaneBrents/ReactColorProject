@@ -45,6 +45,7 @@ export default function Palette(props) {
         level={level}
         changeLevel={changeLevel}
         handleChange={changeFormat}
+        showLevel
       />
       <div className="Palette-Colors">{colorBoxes}</div>
       <footer className="Palette-footer">

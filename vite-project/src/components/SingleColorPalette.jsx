@@ -3,10 +3,23 @@ import ColorBox from "./ColorBox";
 import NavBar from "./NavBar";
 import { Link } from "react-router-dom";
 
-
 export default function SingleColorPalette(props) {
   const { palette, colorId } = props;
-  const {paletteName, emoji} = props.palette;
+
+  const [state, setState] = useState({
+    level: 500,
+    format: "hex",
+  });
+
+  const { level, format } = state;
+
+  const changeLevel = (level) => {
+    setState({ ...state, level: level });
+  };
+
+  const changeFormat = (val) => {
+    setState({ ...state, format: val });
+  };
 
   const getShades = (palette, colorId) => {
     let allShades = [];
@@ -19,19 +32,7 @@ export default function SingleColorPalette(props) {
     }
     return allShades.slice(1);
   };
-  const changeFormat = (e) => {
-    setFormat(e.target.value);
-    setChanged(
-      true,
-      setTimeout(() => setChanged(false), 3000)
-    );
-  };
-  const closeSnackerBar = () => {
-    setChanged(false);
-  };
 
-  const [format, setFormat] = useState("hex");
-  const [changed, setChanged] = useState(false);
   const [shades] = useState(getShades(palette, colorId));
 
   const colorBoxes = shades.map((c) => (
@@ -43,24 +44,20 @@ export default function SingleColorPalette(props) {
     />
   ));
   return (
-    <div className="Palette">
-      <NavBar
-        handleChange={changeFormat}
-        format={format}
-        changed={changed}
-        closeSnackerBar={closeSnackerBar}
-        showLevel={false}
-      />
+    <div className="SingleColorPalette Palette">
+      <NavBar handleChange={changeFormat} format={format} showLevel={false} />
       <div className="Palette-Colors">
         {colorBoxes}
-        <Link to={`/palette/${palette.id}`}>
-          <button>Go Back</button>
-        </Link>
-        <footer className="Palette-footer">
+        <div className="go-back ColorBox">
+          <Link to={`/palette/${palette.id}`} className="back-button">
+            Go Back
+          </Link>
+        </div>
+      </div>
+      <footer className="Palette-footer">
         {palette.paletteName}
         <span className="emoji">{palette.emoji}</span>
       </footer>
-      </div>
     </div>
   );
 }
