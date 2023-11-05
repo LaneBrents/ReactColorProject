@@ -4,15 +4,14 @@ import { Icon, MenuItem, Select } from "@mui/material";
 import "rc-slider/assets/index.css";
 import "../styles/NavBar.css";
 import Slider from "rc-slider";
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function NavBar(props) {
   const [state, setState] = useState({
     format: "hex",
-    open: false
+    open: false,
   });
 
   const handleChange = (e) => {
@@ -21,27 +20,29 @@ export default function NavBar(props) {
   };
 
   const closeSnackbar = () => {
-    setState({...state, open: false });
+    setState({ ...state, open: false });
   };
 
   return (
     <header className="Navbar">
       <div className="logo">
-        <Link to='/'>ReactColorGenerator</Link>
+        <Link to="/">ReactColorGenerator</Link>
       </div>
-      <div className="slider-container">
-        <span>Level: {props.level}</span>
-        <div className="slider">
-          <Slider
-            level={props.level}
-            onChange={props.changeLevel}
-            defaultValue={props.level}
-            step={100}
-            min={100}
-            max={900}
-          />
+      {props.showLevel && (
+        <div className="slider-container">
+          <span>Level: {props.level}</span>
+          <div className="slider">
+            <Slider
+              level={props.level}
+              onChange={props.changeLevel}
+              defaultValue={props.level}
+              step={100}
+              min={100}
+              max={900}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="select-container">
         <Select size="small" value={state.format} onChange={handleChange}>
           <MenuItem value="hex">HEX</MenuItem>
@@ -49,19 +50,25 @@ export default function NavBar(props) {
           <MenuItem value="rgba">RGBA</MenuItem>
         </Select>
       </div>
-      <Snackbar anchorOrigin={{vertical: "bottom", horizontal: "left"}} 
-      open={state.open}
-      autoHideDuration={1500}
-      message={<span id="msg-id">Format Changed!</span>}
-      ContentProps={{
-        "aria-describedby": "msg-id"
-      }}
-      onClose={closeSnackbar}
-      action={[
-        <IconButton onClick={closeSnackbar} color="inherit" key="close" aria-label="close" >
+      <Snackbar
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        open={state.open}
+        autoHideDuration={1500}
+        message={<span id="msg-id">Format Changed!</span>}
+        ContentProps={{
+          "aria-describedby": "msg-id",
+        }}
+        onClose={closeSnackbar}
+        action={[
+          <IconButton
+            onClick={closeSnackbar}
+            color="inherit"
+            key="close"
+            aria-label="close"
+          >
             <CloseIcon />
-        </IconButton>
-      ]}
+          </IconButton>,
+        ]}
       />
     </header>
   );

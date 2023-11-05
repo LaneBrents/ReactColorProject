@@ -1,8 +1,12 @@
 import { React, useState } from "react";
 import ColorBox from "./ColorBox";
+import NavBar from "./NavBar";
+import { Link } from "react-router-dom";
+
 
 export default function SingleColorPalette(props) {
   const { palette, colorId } = props;
+  const {paletteName, emoji} = props.palette;
 
   const getShades = (palette, colorId) => {
     let allShades = [];
@@ -40,8 +44,23 @@ export default function SingleColorPalette(props) {
   ));
   return (
     <div className="Palette">
-      <h1>Single Color Palette</h1>
-      <div className="Palette-Colors">{colorBoxes}</div>
+      <NavBar
+        handleChange={changeFormat}
+        format={format}
+        changed={changed}
+        closeSnackerBar={closeSnackerBar}
+        showLevel={false}
+      />
+      <div className="Palette-Colors">
+        {colorBoxes}
+        <Link to={`/palette/${palette.id}`}>
+          <button>Go Back</button>
+        </Link>
+        <footer className="Palette-footer">
+        {palette.paletteName}
+        <span className="emoji">{palette.emoji}</span>
+      </footer>
+      </div>
     </div>
   );
 }
