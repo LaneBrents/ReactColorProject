@@ -36,7 +36,7 @@ export default function Palette(props) {
   };
 
   const colorBoxes = palette.colors[level].map((color) => (
-    <ColorBox background={color[format]} name={color.name} key={color.id} id={color.id} paletteId={paletteId}/>
+    <ColorBox background={color[format]} name={color.name} key={color.id} id={color.id} paletteId={paletteId} showLink={true}/>
   ));
 
   return (
